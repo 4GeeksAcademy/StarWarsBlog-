@@ -7,7 +7,7 @@ import { Context } from "../store/appContext";
 import "../../styles/demo.css";
 
 export const CharacterData = () => {
-    const {id} = useParams()
+    const { id } = useParams()
 
     const [characterData, setCharacterData] = useState(null)
 
@@ -15,23 +15,23 @@ export const CharacterData = () => {
         const response = await fetch(`https://www.swapi.tech/api/people/${id}`)
         const data = await response.json()
         setCharacterData(data.result)
-        
+
     }
 
     useEffect(() => {
         fetchSingleCharacterData()
-    },[])
+    }, [])
 
 
-    return<>
+    return <>
         <div className=" container d-flex justify-content-center gap-5">
-            <img className="mx-5 alto-img" src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}/>
-            {characterData && 
+            <img className="mx-5 alto-img" src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} />
+            {/* {characterData && 
                 <div className="mx-5">
                     <h1 className="text-center">{characterData.properties.name}</h1>
                     <p>{characterData.description}</p>
                 </div>
-            }
+            } */}
 
 
         </div>
@@ -80,7 +80,7 @@ export const CharacterData = () => {
                         <p className="text-danger m-0">blue</p>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </>

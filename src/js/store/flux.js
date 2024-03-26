@@ -1,3 +1,5 @@
+import { parse, stringify } from "query-string";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -14,11 +16,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			],
 
-			characters:[],
+			characters: JSON.parse(localStorage.getItem("characters")) || [],
 
-			planets:[],
+			planets: JSON.parse(localStorage.getItem("planets")) || [],
 
-			favorites:[]
+
+			favorites: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -26,48 +29,105 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 			loadCharacterData: async () => {
-				const res = await fetch("https://www.swapi.tech/api/people/")
-				const data = await res.json()
-				setStore({characters: data.results})
+				let store = getStore()
+
+				if (store.characters <= 0) {
+					try {
+						const res = await fetch("https://www.swapi.tech/api/people/")
+						const data = await res.json()
+
+						for (let response of data.results) {
+							const result = await fetch(response.url)
+							const dataTwo = await result.json()
+							setStore({
+								characters: [...store.characters, dataTwo.result]
+							})
+						}
+
+						localStorage.setItem("characters", JSON.stringify(store.characters))
+
+					} catch (error) {
+						console.log(error)
+					}
+				}
+
+
+
 			},
 
 			loadPlanetsData: async () => {
-				const res = await fetch("https://www.swapi.tech/api/planets/")
-				const data = await res.json()
-				setStore({planets: data.results})
-			},
+				let store = getStore()
 
+				if (store.planets <= 0) {
+					try {
+						const res = await fetch("https://www.swapi.tech/api/planets/")
+						const data = await res.json()
 
-			addFavorite: (index) => {
-				console.log(index)
-				
-				const store = getStore();
-				
-				const charFavorite = store.characters.find((char,) => {
-					return char.uid === index
-				})
+						for (let response of data.results) {
+							const result = await fetch(response.url)
+							const dataTwo = await result.json()
 
-				 const planetFavorite = store.planets.find((planet,) => {
-				 	return planet.uid === index
-				 })
+							setStore({
+								planets: [...store.planets, dataTwo.result]
+							})
+						}
 
-				const alreadyFavorite = store.favorites.find((element) => {
-					return charFavorite === element
-				})
-				
-				if(!alreadyFavorite){
-					setStore({favorites: [...store.favorites, charFavorite,  ]})
+						localStorage.setItem("planets", JSON.stringify(store.planets))
+
+					} catch (error) {
+						console.log(error)
+					}
 				}
 			},
 
 
+			addFavorite: (fav) => {
+				let store = getStore()
+
+				let exist = store.favorites.some((item) => fav._id == item._id)
+
+				if (exist) {
+					//eliminar de favorite
+					let newFav = store.favorites.filter((item) => fav._id != item._id)
+					setStore({
+						favorites: newFav
+					})
+				} else {
+					setStore({
+						favorites: [...store.favorites, fav]
+					})
+				}
+
+
+				// console.log(index)
+
+				// const store = getStore();
+
+				// const charFavorite = store.characters.find((char,) => {
+				// 	return char.uid === index
+				// })
+
+				// const planetFavorite = store.planets.find((planet,) => {
+				// 	return planet.uid === index
+				// })
+
+				// const alreadyFavorite = store.favorites.find((element) => {
+				// 	return charFavorite === element
+				// })
+
+				// if (!alreadyFavorite) {
+				// 	setStore({ favorites: [...store.favorites, charFavorite,] })
+				// }
+			},
+
+
 			deleteFavorite: (index) => {
-				
+
 				const store = getStore();
 				const newFavorites = store.favorites.filter((char) => {
 					return char.uid !== index
 				})
-				setStore({favorites: newFavorites})
+				setStore({ favorites: newFavorites })
 			},
 
 
