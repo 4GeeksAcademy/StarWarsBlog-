@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useContext } from "react";
@@ -9,6 +9,7 @@ import "../../styles/home.css";
 export const Home = () => {
 
 	const { store, actions } = useContext(Context)
+	const [activeBtn, setActiveBtn] = useState(false)
 
 	// useEffect(()=>{
 	// 	actions.loadCharacterData()
@@ -19,15 +20,20 @@ export const Home = () => {
 		<div key={char.uid} className="card col-3">
 			<img src={`https://starwars-visualguide.com/assets/img/characters/${char.uid}.jpg`} className="card-img-top" alt="..." />
 			<div className="card-body">
-				<h5 className="card-title d-flex">{char.properties.name}</h5>
+				<h5 className="	 d-flex">{char.properties.name}</h5>
 
-				<p className="card-text">{char.properties.gender}</p>
-				<p className="card-text">{char.properties.hair_color}</p>
+				<p className="d-flex justify-content-start m-0">Gender: {char.properties.gender}</p>
+				<p className="d-flex justify-content-start m-0">Hair Color: {char.properties.hair_color}</p>
+				<p className="d-flex justify-content-start ">Eye Color: {char.properties.eye_color}</p>
 
 				<div className="d-flex justify-content-between">
 					<Link to={`character/${char.uid}`} className="btn btn-primary">Learn More!</Link>
-					<button className="btn btn-warning" onClick={() => actions.addFavorite(char)}>
-						<FontAwesomeIcon icon={faHeart} /></button>
+
+					<button className="btn btn-dark" onClick={() => actions.addFavorite(char)}>
+
+						<FontAwesomeIcon className={(store.favorites.find(item => char.uid == item.uid ) ? "text-warning" : "text-light")} icon={faHeart} />
+
+					</button>
 				</div>
 			</div>
 		</div>
@@ -37,20 +43,25 @@ export const Home = () => {
 		<div key={planet.uid} className="card col-3">
 			<img src={`https://starwars-visualguide.com/assets/img/planets/${planet.uid}.jpg`} className="card-img-top" alt="..." />
 			<div className="card-body">
-				<h5 className="d-flex">{planet.name}</h5>
+				<h5 className="d-flex">{planet.properties.name}</h5>
 
-				<p className="">{planet.population}</p>
-				<p className="">{planet.terrain}</p>
+				<p className="d-flex justify-content-start m-0">Population: {planet.properties.population}</p>
+				<p className="d-flex justify-content-start">Terrain: {planet.properties.terrain}</p>
+
 
 				<div className="d-flex justify-content-between">
-					<Link to={`character/${planet.uid}`} className="btn btn-primary">Learn More!</Link>
-					<button className="btn btn-warning" onClick={() => actions.addFavorite(planet.uid)}>
-						<FontAwesomeIcon icon={faHeart} />
+					<Link to={`planets/${planet.uid}`} className="btn btn-primary">Learn More!</Link>
+
+					<button className="btn bg-dark" onClick={() => actions.addFavorite(planet)}>
+
+						<FontAwesomeIcon className={(store.favorites.find(item => planet.uid == item.uid ) ? "text-warning" : "text-light")} icon={faHeart} />
+
 					</button>
+
 				</div>
 
 			</div>
-		</div>
+		</div >
 	)
 
 	return <>
@@ -58,7 +69,7 @@ export const Home = () => {
 			<h1 className="mb-4 text-danger">Characters</h1>
 			<div className="text-center d-flex flex-column">
 
-				<div className="scroll d-flex justify-content-center gap-1" style={{ maxWidth: "90vw" }}>
+				<div className="scroll d-flex justify-content-center gap-1 mx-auto" style={{ maxWidth: "90vw" }}>
 					{characters}
 				</div>
 			</div>

@@ -13,7 +13,7 @@ export const Navbar = () => {
 				<img className="alto mx-5 px-5" src="https://cdn.freebiesupply.com/logos/large/2x/star-wars-logo-png-transparent.png" alt="" />
 			</Link>
 			<div className="ml-auto">
-				<div className="dropdown mx-5">
+				<div className="dropdown mx-5 px-5">
 					<button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 						Favorites: <span>{store.favorites.length}</span>
 					</button>
@@ -25,7 +25,7 @@ export const Navbar = () => {
 								return (
 									<li key={item.uid} className="d-flex justify-content-between" style={{ width: "250px" }}>
 										<span className="dropdown-item">{item.properties.name}</span>
-										<span className="dropdown-item" onClick={() => actions.deleteFavorite(item.uid)}>🗑️</span>
+										<span className="dropdown-item btn" onClick={() => actions.deleteFavorite(item.uid)}>🗑️</span>
 									</li>
 								)
 							})

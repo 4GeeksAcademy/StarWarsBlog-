@@ -99,7 +99,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 
-				// console.log(index)
+				
 
 				// const store = getStore();
 
@@ -118,6 +118,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				// if (!alreadyFavorite) {
 				// 	setStore({ favorites: [...store.favorites, charFavorite,] })
 				// }
+
 			},
 
 

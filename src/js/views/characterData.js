@@ -26,12 +26,14 @@ export const CharacterData = () => {
     return <>
         <div className=" container d-flex justify-content-center gap-5">
             <img className="mx-5 alto-img" src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} />
-            {/* {characterData && 
+
+            {characterData &&
                 <div className="mx-5">
                     <h1 className="text-center">{characterData.properties.name}</h1>
-                    <p>{characterData.description}</p>
+                    <p className="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 </div>
-            } */}
+            }
+
 
 
         </div>
@@ -41,35 +43,35 @@ export const CharacterData = () => {
                 <div className="mx-5">
                     <div className="mt-3">
                         <p className="text-danger m-0 ">Name</p>
-                        <p className="text-danger m-0">Luke SkyWalker</p>
+                        <p className="text-danger m-0 text-center">{characterData && characterData.properties.name}</p>
                     </div>
                 </div>
 
                 <div className="mx-5">
                     <div className="mt-3">
                         <p className="text-danger m-0 ">Birth Year</p>
-                        <p className="text-danger m-0">19BBY</p>
+                        <p className="text-danger m-0 text-center">{characterData && characterData.properties.birth_year}</p>
                     </div>
                 </div>
 
                 <div className="mx-5">
                     <div className="mt-3">
                         <p className="text-danger m-0 ">Gender</p>
-                        <p className="text-danger m-0">male</p>
+                        <p className="text-danger m-0 text-center">{characterData && characterData.properties.gender}</p>
                     </div>
                 </div>
 
                 <div className="mx-5">
                     <div className="mt-3">
                         <p className="text-danger m-0 ">height</p>
-                        <p className="text-danger m-0">172</p>
+                        <p className="text-danger m-0 text-center">{characterData && characterData.properties.height}</p>
                     </div>
                 </div>
 
                 <div className="mx-5">
                     <div className="mt-3">
                         <p className="text-danger m-0 ">Skin Color</p>
-                        <p className="text-danger m-0">fair</p>
+                        <p className="text-danger m-0 text-center">{characterData && characterData.properties.skin_color}</p>
                     </div>
                 </div>
 
@@ -77,7 +79,7 @@ export const CharacterData = () => {
                     <div className="mt-3">
 
                         <p className="text-danger m-0 ">Eye Color</p>
-                        <p className="text-danger m-0">blue</p>
+                        <p className="text-danger m-0 text-center">{characterData && characterData.properties.eye_color}</p>
                     </div>
                 </div>
 
